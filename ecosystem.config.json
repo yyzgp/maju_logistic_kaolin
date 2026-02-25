@@ -1,0 +1,14 @@
+{
+    "apps": [{
+        "name": "Laravel-Reverb",
+        "script": "/var/www/html/current/artisan",
+        "args": ["reverb:start"],
+        "instances": "1",
+        "wait_ready": true,
+        "autorestart": false,
+        "max_restarts": 1,
+        "interpreter" : "php",
+        "watch": true,
+        "time": true
+    }]
+}

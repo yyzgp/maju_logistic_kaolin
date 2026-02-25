@@ -1,0 +1,25 @@
+  .iti__selected-flag {
+    background: #e9ecef !important;
+    padding: 0 10px 0 10px !important;
+    border-right: 1px solid #ced4da !important;
+  }
+
+  .iti__arrow {
+    display: none;
+  }
+
+  .form-select{
+    color: #212529a1 !important;
+  }
+  body {
+    margin: 0;
+    padding: 0;
+    background: rgb(204,204,204);
+  }
+  .invalid-feedback {
+    display: block;
+    width: 100%;
+    margin-top: .25rem;
+    font-size: .875em;
+    color: #dc3545;
+}

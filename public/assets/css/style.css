@@ -1,0 +1,48 @@
+.widget-green{
+    margin: 10px;
+    border: 1px solid rgba(255, 255, 255, .25);
+    border-radius: 20px;
+    background-color: rgba(255, 255, 255, 0.45);
+    box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.25);
+    font-family: "Changa", sans-serif;
+    font-weight: 400 !important;
+    font-style: normal !important;
+    backdrop-filter: blur(15px);
+}
+body {
+    margin: 0;
+    font-family: "Nunito", sans-serif;
+    font-size: 0.9rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: rgba(0, 0, 0, 0);
+    background-color: #FFFFFF !important;
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+ul.driver-ul {
+  width: 100%;
+  text-align: justify;
+}
+
+
+ul.driver-ul::after {
+  content: '';
+  display: inline-block;
+  width: 100%;
+}
+
+li.driver-li {
+  display: inline-block;
+}
+#background-video {
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: -1;
+ }
