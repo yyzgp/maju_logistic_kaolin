@@ -72,7 +72,7 @@
                                                 </td>
 
                                                 <td><a href="{{ route('administrator.merchants.show', $invoice->merchant_id) }}"
-                                                        class="text-danger">{{ \App\Models\Merchant::find($invoice->merchant_id)->name }}</a>
+                                                        class="text-danger">{{ optional(\App\Models\Merchant::find($invoice->merchant_id))->name }}</a>
                                                 </td>
 
                                                 <td>
