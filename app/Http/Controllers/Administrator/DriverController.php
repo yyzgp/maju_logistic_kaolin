@@ -275,7 +275,8 @@ class DriverController extends Controller
         ]);
         $result = "Driver app has been notified for this user to make status " . ($request->prop == 1 ? 'online' : 'offline');
         return response()->json([
-            'success' => $result
+            'success' => $result,
+            'response' => $response->json()
         ]);
     }
 }
