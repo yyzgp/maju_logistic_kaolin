@@ -14,6 +14,7 @@ use App\Models\Service;
 use App\Models\Task;
 use App\Models\TaskPhoto;
 use App\Models\User;
+use App\Events\SendOnlineStatus;
 use App\Notifications\SendDONotification;
 use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
 use Barryvdh\DomPDF\PDF;
@@ -206,9 +207,9 @@ class AppController extends Controller
         if (isset($request->longitude)) {
             $driver->longitude = $request->longitude;
         }
-        if (isset($request->status)) {
-            $driver->is_online = $request->status;
-        }
+        // if (isset($request->status)) {
+        //     $driver->is_online = $request->status;
+        // }
         $driver->save();
         return response()->json(['success' => 'Location updated']);
     }
@@ -220,6 +221,11 @@ class AppController extends Controller
         $driver->longitude = null;
         $driver->is_online = '0';
         $driver->save();
+
+        $name = $driver->firstname . ' ' . ($driver->lastname ?? '');
+        // Broadcast offline status for realtime UI updates.
+        SendOnlineStatus::dispatch(false, $driver->id, $name);
+
         return response()->json(['success' => 'Offline successfull']);
     }
 
