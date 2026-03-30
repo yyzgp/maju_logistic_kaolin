@@ -27,6 +27,9 @@ class MapController extends Controller
                 'lastname'              => $driver->lastname,
                 'latitude'              => $driver->latitude,
                 'longitude'             => $driver->longitude,
+                // online flag used for initial icon state
+                'is_online'             => $driver->is_online,
+                // legacy status string used in some views / JS
                 'status'                => $driver->status,
                 'dialcode'                => $driver->dialcode,
                 'phone'                => $driver->phone,
@@ -53,6 +56,7 @@ class MapController extends Controller
                 'lastname'              => $driver->lastname,
                 'latitude'              => $driver->latitude,
                 'longitude'             => $driver->longitude,
+                'is_online'             => $driver->is_online,
                 'status'                => $driver->status,
                 'dialcode'                => $driver->dialcode,
                 'phone'                => $driver->phone,

@@ -10,8 +10,10 @@
 
                         <div class="inbox-item-img"><img src="{{ $driver['avatar'] }}" class="rounded-circle"
                                 alt="driver-image" width="55px"><span id="online-driver-{{ $driver['id'] }}"
-                                class="text-success online-status-icon" style="display: none;">●</span><span
-                                id="offline-driver-{{ $driver['id'] }}" class="text-muted offline-status-icon">●</span>
+                                class="text-success online-status-icon"
+                                style="display: {{ (int)($driver['is_online'] ?? 0) === 1 ? 'inline' : 'none' }};">●</span><span
+                                id="offline-driver-{{ $driver['id'] }}" class="text-muted offline-status-icon"
+                                style="display: {{ (int)($driver['is_online'] ?? 0) === 1 ? 'none' : 'inline' }};">●</span>
                         </div>
                         <p class="inbox-item-author">{{ $driver['firstname'] }}
                             {{ $driver['lastname'] }}</p>

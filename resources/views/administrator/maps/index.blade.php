@@ -581,53 +581,40 @@
 
     <script>
         window.addEventListener('DOMContentLoaded', function () {
-          
-            let driverTimers = {};
+            // Only use location events for map updates; online/offline icons should come from `online-status`.
+            if (window.Echo && typeof window.Echo.channel === 'function') {
+                window.Echo.channel('location')
+                    .listen('SendLocation', (data) => {
+                        const driverId = data.driver && data.driver.id;
+                        if (!driverId) return;
 
-            window.Echo.channel('location')
-                .listen('SendLocation', (data) => {
-                    const driverId = data.driver.id;
-
-                    console.log({
-                        driver: data.driver.firstname + " " + data.driver.lastname,
-                        latitude: data.location.lat,
-                        longitude: data.location.long
-                    });
-
-                    if (data.location.lat) {
+                        // Location updates imply the driver is reachable right now.
                         $("#online-driver-" + driverId).show();
                         $("#offline-driver-" + driverId).hide();
-                    } else {
-                        $("#online-driver-" + driverId).hide();
-                        $("#offline-driver-" + driverId).show();
-                    }
-
-                    if (driverTimers[driverId]) {
-                        clearTimeout(driverTimers[driverId]);
-                    }
-
-                    driverTimers[driverId] = setTimeout(() => {
-                        $("#online-driver-" + driverId).hide();
-                        $("#offline-driver-" + driverId).show();
-                        console.log("Driver " + driverId + " set to offline (no updates in 5s)");
-                    }, 5000);
-                });
+                    });
+            }
         });
     </script>
 
     <script>
         window.addEventListener('DOMContentLoaded', function() {
+            if (window.Echo && typeof window.Echo.channel === 'function') {
+                window.Echo.channel('online-status')
+                    .listen('SendOnlineStatus', (data) => {
+                        const isOnline = parseInt(data.is_online, 10) === 1;
+                        const driverId = data.driver_id;
 
-            window.Echo.channel('online-status')
-                .listen('SendOnlineStatus', (data) => {
-                    if (data.is_online == 1) {
-                        $("#online-driver-" + data.driver_id).show();
-                        $("#offline-driver-" + data.driver_id).hide();
-                    } else {
-                        $("#online-driver-" + data.driver_id).hide();
-                        $("#offline-driver-" + data.driver_id).show();
-                    }
-                })
+                        if (!driverId) return;
+
+                        if (isOnline) {
+                            $("#online-driver-" + driverId).show();
+                            $("#offline-driver-" + driverId).hide();
+                        } else {
+                            $("#online-driver-" + driverId).hide();
+                            $("#offline-driver-" + driverId).show();
+                        }
+                    });
+            }
         });
     </script>
 
