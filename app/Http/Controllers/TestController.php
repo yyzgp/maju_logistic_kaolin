@@ -56,7 +56,6 @@ class TestController extends Controller
         $driver                 = User::find($driver_id);
         $driver->latitude       = $lat;
         $driver->longitude      = $long;
-        $driver->is_online      = 1;
         $driver->save();
         SendLocation::dispatch($location, $driver);
         return response()->json(['status' => 'success', 'data' => $location]);

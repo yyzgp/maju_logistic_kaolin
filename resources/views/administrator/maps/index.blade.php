@@ -587,10 +587,6 @@
                     .listen('SendLocation', (data) => {
                         const driverId = data.driver && data.driver.id;
                         if (!driverId) return;
-
-                        // Location updates imply the driver is reachable right now.
-                        $("#online-driver-" + driverId).show();
-                        $("#offline-driver-" + driverId).hide();
                     });
             }
         });
