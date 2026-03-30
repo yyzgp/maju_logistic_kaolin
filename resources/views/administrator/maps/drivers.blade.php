@@ -39,17 +39,6 @@
                         aria-expanded="false">
                         <i class="mdi mdi-dots-vertical"></i>
                     </a>
-                    <div class="dropdown-menu dropdown-menu-end">
-                        <a href="javascript:void(0)" class="dropdown-item"><i class="mdi mdi-form-select me-1"></i>Route
-                            Optimization</a>
-                        <a href="javascript:void(0)" class="dropdown-item"><i
-                                class="mdi mdi-form-select me-1"></i>Recalculate ETA</a>
-                        <a href="javascript:void(0)" class="dropdown-item"><i class="mdi mdi-form-select me-1"></i>Clear
-                            ETA</a>
-                        <a href="javascript:void(0)" class="dropdown-item"><i class="mdi mdi-form-select me-1"></i>Send
-                            ETA
-                            via Email</a>
-                    </div>
                 </div>
             </div>
         </a>
