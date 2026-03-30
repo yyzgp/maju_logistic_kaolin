@@ -222,9 +222,9 @@ class AppController extends Controller
         $driver->is_online = '0';
         $driver->save();
 
-        $name = $driver->firstname . 'Test' . ($driver->lastname ?? '');
+        //$name = $driver->firstname . 'Test' . ($driver->lastname ?? '');
         // Broadcast offline status for realtime UI updates.
-        SendOnlineStatus::dispatch(false, $driver->id, $name);
+        //SendOnlineStatus::dispatch(false, $driver->id, $name);
 
         return response()->json(['success' => 'Offline successfull']);
     }
