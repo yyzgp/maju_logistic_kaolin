@@ -597,7 +597,8 @@
             if (window.Echo && typeof window.Echo.channel === 'function') {
                 window.Echo.channel('online-status')
                     .listen('SendOnlineStatus', (data) => {
-                        const isOnline = parseInt(data.is_online, 10) === 1;
+                        // `is_online` may arrive as boolean or 0/1, so handle both safely.
+                        const isOnline = data.is_online === true || data.is_online === 1 || data.is_online === '1';
                         const driverId = data.driver_id;
 
                         if (!driverId) return;

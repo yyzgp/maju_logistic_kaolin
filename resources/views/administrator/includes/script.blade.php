@@ -28,25 +28,29 @@
 <script>
     window.addEventListener('DOMContentLoaded', function() {
 
-        window.Echo.channel('online-status')
-            .listen('SendOnlineStatus', (data) => {
+        if (window.Echo && typeof window.Echo.channel === 'function') {
+            window.Echo.channel('online-status')
+                .listen('SendOnlineStatus', (data) => {
 
-                let msg = "";
-                if (data.is_online == 1) {
-                    msg = data.name + " is online";
+                    let msg = "";
+                    if (data.is_online === true || data.is_online == 1) {
+                        msg = data.name + " is online";
 
-                } else {
-                    msg = data.name + " is offline";
-                }
-                Toastify({
+                    } else {
+                        msg = data.name + " is offline";
+                    }
+                    Toastify({
 
-                    text: msg,
-                    duration: 4000,
-                    style: {
-                        background: "#D82D36",
-                    },
-                }).showToast();
-            })
+                        text: msg,
+                        duration: 4000,
+                        style: {
+                            background: "#D82D36",
+                        },
+                    }).showToast();
+                });
+        } else {
+            console.warn('Echo is not available: skipping global online-status subscription');
+        }
     });
 </script>
 <script>
