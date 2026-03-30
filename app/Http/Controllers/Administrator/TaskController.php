@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Str;
 
 class TaskController extends Controller
 {
@@ -424,7 +425,19 @@ class TaskController extends Controller
     public function assignDriver(Request $request)
     {
         $task = Task::find($request->task_id);
-        Task::find($request->task_id)->update(['driver_id' => $request->driver]);
+        $task->update(['driver_id' => $request->driver]);
+
+        $driver = User::find($request->driver);
+        if (!empty($driver->app_push_token)) {
+            $address = Str::limit($task->address, 60);
+            $msg =  "You've been assigned a {$task->type} task at {$address}";
+            $response = Http::post('https://exp.host/--/api/v2/push/send', [
+                'to' => $driver->app_push_token,
+                'title' => "Task Assigned",
+                'body' => $msg,
+            ]);
+        }
+
         return response()->json(['success' => 'Driver assigned successfully!'], 200);
     }
 
@@ -445,7 +458,21 @@ class TaskController extends Controller
             $child_task->driver_id = $request->driver;
             $child_task->save();
         }
-        Task::find($request->task_id)->update(['driver_id' => $request->driver, 'service_id' => $service->id, 'towing_fee' => $service->price]);
+
+        $task = Task::find($request->task_id);
+        $task->update(['driver_id' => $request->driver, 'service_id' => $service->id, 'towing_fee' => $service->price]);
+
+        $driver = User::find($request->driver);
+        if (!empty($driver->app_push_token)) {
+            $address = Str::limit($task->address, 60);
+            $msg =  "You've been assigned a {$task->type} task at {$address}";
+            $response = Http::post('https://exp.host/--/api/v2/push/send', [
+                'to' => $driver->app_push_token,
+                'title' => "Task Assigned",
+                'body' => $msg,
+            ]);
+        }
+
         return redirect()->back()->with('success', 'Driver assigned successfully!');
     }
 
